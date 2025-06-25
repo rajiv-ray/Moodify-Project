@@ -1,0 +1,27 @@
+
+# Mark common binary files to prevent diffing
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.mp3 binary
+*.mp4 binary
+*.wav binary
+*.ogg binary
+
+# Web-related files (text-based)
+*.html text
+*.css text
+*.js text
+*.json text
+
+# Python scripts
+*.py text
+
+# YAML/Config files
+*.yml text
+*.yaml text
+
+# Git should treat .gitattributes itself as text
+.gitattributes text
