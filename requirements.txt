@@ -12,5 +12,5 @@ Werkzeug==3.0.1
 # --- Environment Variable Loader (Optional, but recommended) ---
 python-dotenv==1.0.1
 
-# --- For Future Mood Detection ---
+# --- For Mood Detection ---
 opencv-python==4.9.0.80

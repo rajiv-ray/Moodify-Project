@@ -37,7 +37,7 @@ Thumbs.db
 *.bak
 
 # ---------------------
-# Environment Variables (Optional)
+# Environment Variables
 # ---------------------
 .env
 

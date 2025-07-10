@@ -18,7 +18,7 @@ A Flask-powered web application that detects facial mood and plays music based o
 ## 🛠 Tech Stack
 
 - **Backend:** Python, Flask, Flask-Login, Flask-SQLAlchemy
-- **Frontend:** HTML, CSS, JS (team in progress)
+- **Frontend:** HTML, CSS, JS
 - **Database:** MySQL
 - **Libraries:** OpenCV, PyMySQL
 - **Team Collaboration:** GitHub, GitHub Desktop, Branching

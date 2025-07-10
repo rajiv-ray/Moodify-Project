@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page</title>
+  <link rel="stylesheet" href="{{url_for('static', filename= 'css/style.css')}}">
+</head>
+<body>
+  <div class="container">
+    <div class="left-panel">
+      <div class="music-icon">🎵</div>
+      <p>Dive in with Your Mood!</p>
+    </div>
+    <div class="right-panel">
+      <h2>Login</h2>
+      <form method="POST" action="/login">
+        <div class="input-group">
+          <label>Email address</label>
+          <input type="email" name="email" placeholder="john@smith.com" required>
+        </div>
+        <div class="input-group">
+          <label>Password</label>
+          <input type="password" name="password" placeholder="••••••••" required>
+        </div>
+        <div class="terms">
+          <input type="checkbox" id="terms">
+          <label for="terms">Remember Me</label>
+        </div>
+        <button type="submit" class="btn">LOGIN</button>
+      </form>
+      <div class="login">
+        Don't have an account? <a href="/register">Click here to register</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
