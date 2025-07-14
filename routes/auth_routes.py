@@ -3,29 +3,33 @@ from flask_login import login_user, logout_user, login_required
 from werkzeug.security import generate_password_hash, check_password_hash
 from models import db, User  # Make sure User is imported from your models
 
-auth_bp = Blueprint('auth', __name__)
+auth = Blueprint('auth', __name__)
 
 # ------------------ LOGIN ------------------
-@auth_bp.route('/login', methods=['GET', 'POST'])
+@auth.route('/', methods=['GET', 'POST'])
+def home():
+    return redirect(url_for('auth.login'))
+
+@auth.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
 
-        user = User.query.filter_by(email=email).first()
+        # user = User.query.filter_by(email=email).first()
 
-        if user and check_password_hash(user.password, password):
-            login_user(user)
-            return redirect(url_for('player.dashboard'))  # Redirect to dashboard
-        else:
-            flash('Invalid Email or Password', 'error')
-            return redirect(url_for('auth.login'))
+        # if user and check_password_hash(user.password, password):
+        #     login_user(user)
+        #     return redirect(url_for('player.dashboard'))  # Redirect to dashboard
+        # else:
+        #     flash('Invalid Email or Password', 'error')
+        #     return redirect(url_for('auth.login'))
 
     return render_template('login.html')
 
 
 # ------------------ REGISTER ------------------
-@auth_bp.route('/register', methods=['GET', 'POST'])
+@auth.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
         name = request.form['name']
@@ -51,7 +55,7 @@ def register():
 
 
 # ------------------ LOGOUT ------------------
-@auth_bp.route('/logout')
+@auth.route('/logout')
 @login_required
 def logout():
     logout_user()

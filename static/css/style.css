@@ -1,7 +1,7 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: url('images/newbgmusic.jpg') no-repeat center center;
+  background: url('/static/images/newbgmusic.jpg') no-repeat center center;
   background-size: cover;
   color: #fff;
   display: flex;
@@ -9,6 +9,7 @@ body {
   align-items: center;
   height: 100vh;
 }
+
 .container {
   display: flex;
   background: #3b2a4f;
@@ -16,9 +17,10 @@ body {
   overflow: hidden;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 }
+
 .left-panel {
   width: 300px;
-  background: #684edd url('images/musicVibes.jpg') no-repeat center center;
+  background: #684edd url('/static/images/musicVibes.jpg') no-repeat center center;
   background-size: cover;
   padding: 20px;
   text-align: center;
@@ -55,41 +57,66 @@ body {
   margin: 20px 0;
   text-align: right;
 }
+
 .right-panel {
   padding: 20px;
   width: 400px;
 }
+
 .right-panel h2 {
   text-align: center;
   margin-bottom: 20px;
 }
+
 .input-group {
   margin-bottom: 15px;
+  position: relative;
 }
+
 .input-group label {
   display: block;
   margin-bottom: 5px;
 }
+
 .input-group input {
-  width: 95%;
-  padding: 10px;
+  width: 100%;
+  padding: 10px 40px 10px 15px; /* right padding added for icon */
   border: none;
   border-radius: 25px;
   background: #4a355e;
   color: #fff;
   outline: none;
+  box-sizing: border-box;
 }
+
 .input-group input:focus {
   background: #5a406e;
 }
+
+/* Eye Icon Style */
+.input-group i {
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  color: #ccc;
+  cursor: pointer;
+}
+
+.input-group i:hover {
+  color: #fff;
+}
+
 .terms {
   display: flex;
   align-items: center;
   margin-bottom: 15px;
 }
+
 .terms input {
   margin-right: 10px;
 }
+
 .btn {
   width: 100%;
   padding: 12px;
@@ -100,14 +127,17 @@ body {
   font-size: 16px;
   cursor: pointer;
 }
+
 .btn:hover {
   background: #8a6bff;
 }
+
 .login {
   text-align: center;
   margin-top: 15px;
   color: #ddd;
 }
+
 .login a {
   color: #6b48ff;
   text-decoration: none;

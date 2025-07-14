@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Registration Page</title>
   <link rel="stylesheet" href="{{url_for('static', filename= 'css/style.css')}}"> 
+
+  <!-- Font Awesome for eye icon -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
   <div class="container">
@@ -24,20 +27,39 @@
           <label>Email address</label>
           <input type="email" name="email" placeholder="john@smith.com" required>
         </div>
-        <div class="input-group">
+
+        <!-- Password with eye icon -->
+        <div class="input-group" style="position: relative;">
           <label>Password</label>
-          <input type="password" name="password" placeholder="••••••••" required>
+          <input type="password" id="regPassword" name="password" placeholder="••••••••" required style="padding-right: 40px;">
+          <i class="fa-solid fa-eye" id="toggleRegPassword" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); cursor: pointer;"></i>
         </div>
+
         <div class="terms">
           <input type="checkbox" id="terms" required>
           <label for="terms">I agree to Terms & Conditions</label>
         </div>
+
         <button type="submit" class="btn">Sign up</button>
       </form>
+
       <div class="login">
         Already have an account? <a href="/login">Click here to login</a>
       </div>
     </div>
   </div>
+
+  <!-- Toggle Password Visibility Script -->
+  <script>
+    const toggleRegPassword = document.getElementById("toggleRegPassword");
+    const regPassword = document.getElementById("regPassword");
+
+    toggleRegPassword.addEventListener("click", function () {
+      const type = regPassword.getAttribute("type") === "password" ? "text" : "password";
+      regPassword.setAttribute("type", type);
+      this.classList.toggle("fa-eye");
+      this.classList.toggle("fa-eye-slash");
+    });
+  </script>
 </body>
 </html>
