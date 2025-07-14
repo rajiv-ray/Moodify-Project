@@ -1,0 +1,16 @@
+# --- Flask Core ---
+Flask==3.0.0
+Flask-Login==0.6.3
+Flask-SQLAlchemy==3.1.1
+
+# --- MySQL DB Connector ---
+PyMySQL==1.1.0
+
+# --- Password Hashing ---
+Werkzeug==3.0.1
+
+# --- Environment Variable Loader (Optional, but recommended) ---
+python-dotenv==1.0.1
+
+# --- For Mood Detection ---
+opencv-python==4.9.0.80

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration Page</title>
+  <link rel="stylesheet" href="{{url_for('static', filename= 'css/style.css')}}"> 
+</head>
+<body>
+  <div class="container">
+    <div class="left-panel">
+      <div class="music-icon">🎵</div>
+      <h2>Join Us</h2>
+      <p>Music that Feels You!</p>
+    </div>
+    <div class="right-panel">
+      <h2>Registration</h2>
+      <form method="POST" action="/register">
+        <div class="input-group">
+          <label>Name</label>
+          <input type="text" name="name" placeholder="John Smith" required>
+        </div>
+        <div class="input-group">
+          <label>Email address</label>
+          <input type="email" name="email" placeholder="john@smith.com" required>
+        </div>
+        <div class="input-group">
+          <label>Password</label>
+          <input type="password" name="password" placeholder="••••••••" required>
+        </div>
+        <div class="terms">
+          <input type="checkbox" id="terms" required>
+          <label for="terms">I agree to Terms & Conditions</label>
+        </div>
+        <button type="submit" class="btn">Sign up</button>
+      </form>
+      <div class="login">
+        Already have an account? <a href="/login">Click here to login</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

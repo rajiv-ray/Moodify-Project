@@ -1,0 +1,48 @@
+# ---------------------
+# Python & Flask
+# ---------------------
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+*.env
+*.sqlite3
+
+# ---------------------
+# Virtual Environment
+# ---------------------
+env/
+venv/
+ENV/
+.venv/
+env.bak/
+
+# ---------------------
+# VS Code
+# ---------------------
+.vscode/
+
+# ---------------------
+# OS / Editor Artifacts
+# ---------------------
+.DS_Store
+Thumbs.db
+
+# ---------------------
+# Logs & Cache
+# ---------------------
+*.log
+.cache/
+*.bak
+
+# ---------------------
+# Environment Variables
+# ---------------------
+.env
+
+# ---------------------
+# Database dump / secrets
+# ---------------------
+*.sql
+secrets.json
