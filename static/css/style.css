@@ -96,11 +96,13 @@ body {
 /* Eye Icon Style */
 .input-group i {
   position: absolute;
-  top: 50%;
+  top: 65%;
   right: 15px;
   transform: translateY(-50%);
   color: #ccc;
+  font-size: 18px; /* Adjust if it's too big/small */
   cursor: pointer;
+  pointer-events: auto;
 }
 
 .input-group i:hover {
