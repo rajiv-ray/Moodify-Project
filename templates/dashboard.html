@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Moodify - Emotion-Driven Music Discovery</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+</head>
+
+<body>
+  <input type="checkbox" id="nav-toggle" />
+  <div class="dashboard-container">
+    <aside class="sidebar">
+      <div class="logo">
+        <i class="fas fa-music"></i>
+        <span style="font-size: 40px;" class="Moodify">Moodify</span>
+      </div>
+      <nav class="navigation">
+        <ul>
+          <li class="active"><a href="#"><i class="fas fa-home"></i> <span>Dashboard</span></a></li>
+          <li><a href="{{ url_for('player.detect_mood') }}"><i class="fas fa-search"></i> <span>Discover</span></a></li>
+          <li><a href="#"><i class="fas fa-history"></i> <span>History</span></a></li>
+          <li><a href="#"><i class="fas fa-heart"></i> <span>Favorites</span></a></li>
+          <li><a href="#"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
+          <li><a href="#"><i class="fas fa-user"></i> <span>Profile</span></a></li>
+          <li><a href="{{ url_for('auth.logout') }}"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <header class="main-header">
+        <label for="nav-toggle" class="hamburger-menu"><i class="fas fa-bars"></i></label>
+        <h1 class="header-title">Emotion-Driven Music Discovery</h1>
+        <div class="header-actions">
+           <button type="button" class="detect-mood-btn">
+              <i class="fas fa-brain"></i>
+              <span class="btn-text">Detect My Mood</span>
+           </button>
+
+          <img src="https://i.pravatar.cc/40" alt="User" class="user-avatar" />
+        </div>
+      </header>
+
+      <!-- Webcam Stream Section -->
+      <section class="webcam-section" style="text-align: center; padding: 20px;">
+        <h2>Live Camera Feed</h2>
+        <video id="webcam" autoplay playsinline muted
+          style="width: 320px; height: 240px; border-radius: 10px; border: 2px solid #ccc;"></video>
+      </section>
+
+      <div class="content-area" style="display: flex; gap: 20px;">
+        <!-- Left Panel -->
+        <div class="left-panel" style="flex: 2;">
+          <div class="mood-content">
+            <div class="profile-icon-wrapper">
+              <div class="dashed-circle">
+                <i class="fa-solid fa-user"></i>
+              </div>
+            </div>
+            <div class="mood-details">
+              <div class="main-mood-card">
+                <div class="emoji">😊</div>
+                <div class="mood-text">Happy & Energetic</div>
+                <div class="confidence-text">92% confidence</div>
+              </div>
+              <div class="stats-wrapper">
+                <div class="stat-box">
+                  <span class="stat-label">Happiness</span>
+                  <span class="stat-value happiness">87%</span>
+                </div>
+                <div class="stat-box">
+                  <span class="stat-label">Sadness</span>
+                  <span class="stat-value sadness">4%</span>
+                </div>
+                <div class="stat-box">
+                  <span class="stat-label">Energy</span>
+                  <span class="stat-value energy">91%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="recommended-for-you" style="margin-top: 30px;">
+            <h2>Recommended For You</h2>
+            <ul class="song-list"></ul>
+          </div>
+        </div>
+
+        <!-- Right Panel -->
+        <aside class="right-panel" style="flex: 1;">
+          <div class="mood-history">
+            <h2>Mood History</h2>
+            <div class="chart">
+              <div class="bar-container">
+                <div class="bar" style="height: 70%"></div>
+                <span>Mon</span>
+              </div>
+              <div class="bar-container">
+                <div class="bar" style="height: 50%"></div>
+                <span>Tue</span>
+              </div>
+              <div class="bar-container">
+                <div class="bar" style="height: 80%"></div>
+                <span>Wed</span>
+              </div>
+              <div class="bar-container">
+                <div class="bar" style="height: 90%"></div>
+                <span>Thu</span>
+              </div>
+              <div class="bar-container">
+                <div class="bar active" style="height: 85%"></div>
+                <span>Fri</span>
+              </div>
+              <div class="bar-container">
+                <div class="bar" style="height: 60%"></div>
+                <span>Sat</span>
+              </div>
+              <div class="bar-container">
+                <div class="bar" style="height: 40%"></div>
+                <span>Sun</span>
+              </div>
+            </div>
+            <ul class="history-list">
+              <li>
+                <div class="history-emoji">😊</div>
+                <div>
+                  <p>Happy & Energetic</p>
+                  <small>Today, 10:24 AM</small>
+                </div>
+              </li>
+              <li>
+                <div class="history-emoji">😌</div>
+                <div>
+                  <p>Calm & Relaxed</p>
+                  <small>Yesterday, 8:15 PM</small>
+                </div>
+              </li>
+              <li>
+                <div class="history-emoji">😔</div>
+                <div>
+                  <p>Sad & Reflective</p>
+                  <small>Yesterday, 1:45 PM</small>
+                </div>
+              </li>
+              <li>
+                <div class="history-emoji">😄</div>
+                <div>
+                  <p>Excited & Joyful</p>
+                  <small>Jun 12, 8:30 PM</small>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </main>
+  </div>
+
+  <!-- Music player footer -->
+  <footer class="music-player">
+    <div class="player-song-info">
+      <img src="https://via.placeholder.com/50" alt="Album Art" />
+      <div>
+        <p class="song-title">No song playing</p>
+        <p class="song-artist"></p>
+      </div>
+    </div>
+    <div class="player-controls">
+      <div class="buttons">
+        <i class="fas fa-random"></i>
+        <i class="fas fa-step-backward"></i>
+        <button class="play-pause-btn"><i class="fas fa-play"></i></button>
+        <i class="fas fa-step-forward"></i>
+        <i class="fas fa-redo"></i>
+      </div>
+      <div class="progress-bar-container">
+        <span>0:00</span>
+        <div class="progress-bar">
+          <div class="progress" style="width: 0%"></div>
+        </div>
+        <span>0:00</span>
+      </div>
+    </div>
+    <div class="player-options">
+      <i class="fas fa-list-ul"></i>
+      <i class="fas fa-volume-up"></i>
+      <div class="volume-bar">
+        <div class="volume-level" style="width: 30%"></div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- The actual audio element for playback -->
+   <audio id="global-player" controls style="display: none;"></audio>
+
+  <!-- Your main JS file -->
+  <script src="{{ url_for('static', filename='js/player.js') }}" defer></script>
+</body>
+
+</html>

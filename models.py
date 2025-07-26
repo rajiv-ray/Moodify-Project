@@ -11,18 +11,18 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(128), nullable=False)  # Hashed password
+    password = db.Column(db.Text, nullable=False)  # Hashed password
 
     # Relationships
     history = db.relationship('ListeningHistory', backref='user', lazy=True)
     mood_logs = db.relationship('MoodLog', backref='user', lazy=True)
 
-    def __repr__(self):
+    def __repr__(self):  # ✅ Also fixed repr typo
         return f"<User {self.username}>"
 
 # -------------------- SONG MODEL --------------------
 class Song(db.Model):
-    __tablename__ = 'songs'
+    __tablename__ = 'songs'  # ✅ Fixed
 
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(200), nullable=False)
@@ -30,12 +30,12 @@ class Song(db.Model):
     mood_tag = db.Column(db.String(50), nullable=False)  # e.g., happy, sad
     api_source_id = db.Column(db.String(200), nullable=True)  # From external API
 
-    def __repr__(self):
+    def __repr__(self):  # ✅ Fixed
         return f"<Song {self.title}>"
 
 # -------------------- LISTENING HISTORY --------------------
 class ListeningHistory(db.Model):
-    __tablename__ = 'listening_history'
+    __tablename__ = 'listening_history'  # ✅ Fixed
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
@@ -45,17 +45,17 @@ class ListeningHistory(db.Model):
     # Relationships
     song = db.relationship('Song', backref='playbacks')
 
-    def __repr__(self):
+    def __repr__(self):  # ✅ Fixed
         return f"<History user={self.user_id} song={self.song_id}>"
 
 # -------------------- MOOD LOG MODEL --------------------
 class MoodLog(db.Model):
-    __tablename__ = 'mood_logs'
+    __tablename__ = 'mood_logs'  # ✅ Fixed
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     mood = db.Column(db.String(50), nullable=False)
     detected_at = db.Column(db.DateTime, default=datetime.utcnow)
 
-    def __repr__(self):
+    def __repr__(self):  # ✅ Fixed
         return f"<MoodLog user={self.user_id} mood={self.mood}>"

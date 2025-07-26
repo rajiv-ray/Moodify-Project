@@ -1,36 +1,98 @@
-# backend/player_routes.py
+from flask import Blueprint, request, redirect, jsonify, render_template
+from models import db, User
+from utils import ytmusic, get_audio_url
+import random
+from services.mood_detector import detect_mood_from_base64
 
-from flask import Blueprint, render_template, request, jsonify, session
-from models import db, User  # adjust imports as per your project structure
 
-player_bp = Blueprint('player', __name__, url_prefix='/player')
+player = Blueprint('player', __name__, url_prefix='/player')
 
-# Sample: Mood-based song list
-@player_bp.route('/mood/<mood>', methods=['GET'])
-def get_mood_songs(mood):
-    # This should be dynamically fetched from DB or API
-    mood_song_map = {
-        "happy": ["Zingaat", "Apna Time Aayega"],
-        "sad": ["Channa Mereya", "Tadap Tadap"],
-        "angry": ["Malhari", "Zinda"],
-        "romantic": ["Tum Mile", "Raabta"]
+# Track already played songs to avoid repetition
+played_songs = {"happy": [], "sad": [], "neutral": []}
+
+# ------------------ DASHBOARD ----------------
+@player.route('/dashboard')
+def dashboard():
+    return render_template('dashboard.html')
+
+@player.route('/detect_mood', methods=['POST'])
+def detect_mood():
+    try:
+        data = request.get_json()
+        img_data = data.get('image')
+
+        print("Received image data:", img_data[:100])
+
+        if not img_data:
+            return jsonify({"error": "No image data received"}), 400
+
+        # Detect mood from image
+        emotion, confidence = detect_mood_from_base64(img_data)
+
+        return jsonify({
+            "mood": emotion,
+            "confidence": confidence
+        })
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+
+@player.route('/recommend', methods=['POST'])
+def recommend():
+    data = request.get_json()
+    mood = data.get("mood", "neutral").lower()
+
+    mood_to_query = {
+        "happy": "latest happy hindi songs",
+        "sad": "sad hindi songs",
+        "neutral": "relaxing hindi songs",
+        "angry": "motivational hindi songs",
+        "fear": "calm soothing hindi songs",
+        "surprise": "party hindi songs"
     }
-    songs = mood_song_map.get(mood.lower(), [])
-    return jsonify({"mood": mood, "songs": songs})
+    query = mood_to_query.get(mood, "hindi songs")
 
-# Sample: Play a song
-@player_bp.route('/play', methods=['POST'])
-def play_song():
-    data = request.get_json()
-    song_name = data.get("song")
-    # You may integrate audio streaming or return metadata
-    return jsonify({"message": f"Playing {song_name}!"})
+    songs = []
+    try:
+        results = ytmusic.search(query, filter='songs', limit=10)
+        for r in results:
+            if 'videoId' not in r:
+                continue
+            songs.append({
+                "title": r['title'],
+                "artist": ', '.join([a['name'] for a in r['artists']]),
+                "videoId": r['videoId'],
+                "thumbnail": r['thumbnails'][0]['url']
+            })
 
-# Sample: Create a playlist
-@player_bp.route('/playlist', methods=['POST'])
-def create_playlist():
-    data = request.get_json()
-    name = data.get("name")
-    songs = data.get("songs", [])
-    # Logic to save playlist in DB (use session['user_id'] if logged in)
-    return jsonify({"message": "Playlist created", "name": name, "songs": songs})
+        if not songs:
+            results = ytmusic.search("top hindi songs", filter='songs', limit=10)
+            for r in results:
+                if 'videoId' in r:
+                    songs.append({
+                        "title": r['title'],
+                        "artist": ', '.join([a['name'] for a in r['artists']]),
+                        "videoId": r['videoId'],
+                        "thumbnail": r['thumbnails'][0]['url']
+                    })
+
+        random.shuffle(songs)
+        selected_songs = songs[:5]
+
+    except Exception as e:
+        print(f"[ERROR] YTMusic search failed: {e}")
+        selected_songs = []
+
+    return jsonify({"songs": selected_songs})
+
+
+@player.route('/play/<video_id>')
+def play(video_id):
+    try:
+        audio_url = get_audio_url(video_id)
+        return jsonify({"audio_url": audio_url})
+    except Exception as e:
+        print(f"[ERROR] yt_dlp failed: {e}")
+        return jsonify({"error": "Audio extraction failed"}), 500

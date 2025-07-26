@@ -5,10 +5,12 @@ from flask_login import LoginManager
 from models import db, User
 from dotenv import load_dotenv
 import os
+from flask_cors import CORS
 
 load_dotenv()
 
 app = Flask(__name__)
+CORS(app)
 
 # ----------------- Configuration -----------------
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
@@ -16,26 +18,25 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URI')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # ----------------- Initialize Extensions -----------------
-# db.init_app(app)
+db.init_app(app)
 
-# login_manager = LoginManager()
-# login_manager.login_view = 'auth.login'
-# login_manager.init_app(app)
+login_manager = LoginManager()
+login_manager.login_view = 'auth.login'
+login_manager.init_app(app)
 
-# # ----------------- User Loader -----------------
-# @login_manager.user_loader
-# def load_user(user_id):
-#     return User.query.get(int(user_id))
+# ----------------- User Loader -----------------
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
 
 # ----------------- Register Routes -----------------
 from routes.auth_routes import auth
-from routes.player_routes import player_bp
+from routes.player_routes import player
 
 app.register_blueprint(auth)
-app.register_blueprint(player_bp)
+app.register_blueprint(player)
 
 # ----------------- Run App -----------------
 if __name__ == '__main__':
-    # with app.app_context():
-    #     db.create_all()
-    app.run(debug=True)
+    app.run(debug=True, port=8080)

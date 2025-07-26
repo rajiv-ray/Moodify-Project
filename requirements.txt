@@ -1,7 +1,10 @@
-# --- Flask Core ---
-Flask==3.0.0
+# Flask core
+Flask==2.3.2
 Flask-Login==0.6.3
 Flask-SQLAlchemy==3.1.1
+flask-cors==4.0.0
+pandas==2.2.2
+
 
 # --- MySQL DB Connector ---
 PyMySQL==1.1.0
@@ -9,8 +12,16 @@ PyMySQL==1.1.0
 # --- Password Hashing ---
 Werkzeug==3.0.1
 
-# --- Environment Variable Loader (Optional, but recommended) ---
+# --- Environment Variable Loader  ---
 python-dotenv==1.0.1
 
 # --- For Mood Detection ---
-opencv-python==4.9.0.80
+opencv-python-headless==4.10.0.84
+gunicorn==21.2.0
+fer==22.4.0
+tensorflow==2.16.1
+numpy==1.26.4
+Pillow==10.3.0
+ytmusicapi==1.8.0
+yt-dlp==2024.08.06
+
