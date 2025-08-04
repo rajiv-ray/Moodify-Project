@@ -8,7 +8,7 @@ A Flask-powered web application that detects facial mood and plays music based o
 
 - 🎭 Facial Expression Detection (via OpenCV)
 - 🎶 Music Playlist Generator (via music API)
-- 👤 User Login & Registration (MySQL database)
+- 👤 User Login & Registration (sqlite database)
 - 🧠 Mood-based Animated Emojis
 - 🎨 Dynamic Background Changes Based on Mood
 - 📊 Dashboard with Song History & Mood Analytics
@@ -19,7 +19,7 @@ A Flask-powered web application that detects facial mood and plays music based o
 
 - **Backend:** Python, Flask, Flask-Login, Flask-SQLAlchemy
 - **Frontend:** HTML, CSS, JS
-- **Database:** MySQL
+- **Database:** sqlite
 - **Libraries:** OpenCV, PyMySQL
 - **Team Collaboration:** GitHub, GitHub Desktop, Branching
 
